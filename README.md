@@ -17,5 +17,10 @@ _you **can** combit them_
 1.wefr
 2.wsf
 
-![Image of u=3597903479,3025957499&fm=26&gp=0](http://img0.imgtn.bdimg.com/it/u=3597903479,3025957499&fm=26&gp=0.jpg)
-
+```c
+#include <stdio.h>
+int main(void){
+printf(“hello world!”);
+return 0;
+}
+```
