@@ -1,4 +1,68 @@
-# hello
+drop database stu;
+create database stu;
+use stu;
+create table school (
+    scid char(5) not null,
+    scname char(20) not null,
+    primary key(scid)
+)character set = utf8;
 
-:cry;
+create table information (
+  id char(15) primary key,
+  sname char(10) not null,
+  sex char(5) not null check(sex in('男','女')),
+  age char(3) not null check(age between 1 and 150),
+  scid char(5) not null,
+  grade int(2) check (grade between 1 and 3),
+ foreign key(scid)references school(scid)
+)character set = utf8;
+create table course (
+ cid char(5) primary key,
+ cname char(10) not null,
+  scid char(5) not null,
+  foreign key(scid)references school(scid)
+)character set = utf8;
+create table score(
+ id char(15),
+ cid char(5),
+ score int(3) not null check(score between 0 and 150),
+ primary key(id,cid),
+ foreign key(id)references information(id),
+ foreign key(cid)references course(cid)
+)character set = utf8;
 
+
+insert into school values('1','信息工程学院');
+insert into school values('2','勘查技术与工程学院');
+insert into school values('3','资源学院');
+insert into school values('4','数理学院');
+select * from school;
+insert into course values('123','数据结构','1');
+insert into course values('115','汇编语言','1');
+insert into course values('135','c语言','1');
+insert into course values('224','弹性力学','2');
+insert into course values('225','材料力学','2');
+insert into course values('125','地质学基础','3');
+insert into course values('126','地震勘测','3');
+insert into course values('426','高等数学','4',6);
+insert into course values('425','线性代数','4',4);
+select * from course;
+insert into score values('4141','123',90);
+insert into score values('4141','124',55);
+insert into score values('4141','125',88);
+select * from score;
+
+create view sc(id,cid,score)
+as (
+select y.id,cid,score
+from  information x,score y
+where x.id=y.id);
+
+select * from sc;
+
+
+alter table information
+add statu int default 0 check(statu in(0,1)) ;
+
+alter table course
+add credit  int default 3;
